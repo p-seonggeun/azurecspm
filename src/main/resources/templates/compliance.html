@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- sidebar -->
+        <div class="col-lg-2 col-md-2 col-sm-2 sidebar"> <!-- 사이드바를 2개의 열로 설정 -->
+            <a class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">vuldetect</a>
+            <ul class="navbar-nav flex-column mt-4">
+                <!-- 대시보드 -->
+                <li class="nav-item">
+                    <a th:href="@{/dashboard}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fas fa-home text-white fa-xl mr-3"></i>
+                        <span style="margin-left :10px">대시보드</span>
+                    </a>
+                </li>
+                <!-- 프로젝트 관리 -->
+                <li class="nav-item">
+                    <a th:href="@{/projects}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fas fa-sheet-plastic text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">프로젝트 관리</span>
+                    </a>
+                </li>
+                <!-- 컴플라이언스 -->
+                <li class="nav-item">
+                    <a th:href="@{/compliance}" href="#" class="nav-link text-white p-3 mb-2 current">
+                        <i class="fas fa-cloud text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">컴플라이언스</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of sidebar -->
+
+        <!-- 컴플라이언스 진단항목 목록 컨테이너 -->
+        <div class="col-lg-10 col-md-10 col-sm-10"> <!-- 테이블을 10개의 열로 설정 -->
+            <div class="container">
+                <div class="py-5 text-center">
+                    <h2>진단항목 목록</h2>
+                </div>
+                <hr class="my-4">
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>컴플라이언스명</th>
+                            <th>분류</th>
+                            <th>항목명</th>
+                            <th class="severity">심각도</th>
+                            <th>항목 설명</th>
+                        </tr>
+                        <tr th:each="item : ${compliance.diagnosisItems}">
+                            <td th:text="${compliance.name}"></td>
+                            <td th:text="${item.category}"></td>
+                            <td class="item-name" th:text="${item.name}"></td> <!-- 항목명 -->
+                            <td><i class="fa-solid fa-circle fa-2xs"
+                                   th:style="'color: ' + (${item.vulnerability} == 'High' ? '#ff0000' : (${item.vulnerability} == 'Medium' ? '#ff7300' : '#fff700'))"></i>
+                                <span th:text="${item.vulnerability}">심각도</span></td> <!-- 심각도 -->
+                            <td th:text="${item.itemDescription}"></td> <!-- 항목 설명 -->
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- end of 컴플라이언스 진단항목 목록 컨테이너 -->
+    </div>
+</div>
+</body>
+</html>

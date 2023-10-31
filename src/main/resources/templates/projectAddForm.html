@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- sidebar -->
+        <div class="col-lg-2 col-md-2 col-sm-2 sidebar"> <!-- 사이드바를 2개의 열로 설정 -->
+            <a class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">vuldetect</a>
+            <ul class="navbar-nav flex-column mt-4">
+                <!-- 대시보드 -->
+                <li class="nav-item">
+                    <a th:href="@{/dashboard}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fas fa-home text-white fa-xl mr-3"></i>
+                        <span style="margin-left :10px">대시보드</span>
+                    </a>
+                </li>
+                <!-- 프로젝트 관리 -->
+                <li class="nav-item">
+                    <a th:href="@{/projects}" href="#" class="nav-link text-white p-3 mb-2 current">
+                        <i class="fas fa-sheet-plastic text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">프로젝트 관리</span>
+                    </a>
+                </li>
+                <!-- 컴플라이언스 -->
+                <li class="nav-item">
+                    <a th:href="@{/compliance}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fa-solid fa-cloud text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">컴플라이언스</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of sidebar -->
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="container" style="max-width: 80%">
+                <div class="py-5 text-center">
+                    <h2>프로젝트 등록</h2>
+                </div>
+                <h4 class="mb-3">프로젝트</h4>
+                <form action="projects.html" th:action method="post">
+                    <div>
+                        <label for="projectName">프로젝트명</label>
+                        <input type="text" id="projectName" name="projectName" class="form-control" placeholder="이름을 입력하세요">
+                    </div>
+                  <div>
+                    <label for="userName">소유주</label>
+                    <select id="userName" name="userId" class="form-control">
+                      <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="complianceName1">컴플라이언스</label>
+                    <select id="complianceName1" name="complianceId" class="form-control">
+                      <option th:each="compliance : ${compliances}" th:value="${compliance.id}" th:text="${compliance.name}"></option>
+                    </select>
+                  </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col">
+                            <button class="w-100 btn btn-primary btn-lg" style="background-color: #f44336; border: #f44336;"
+                                    type="submit">프로젝트 등록</button>
+                        </div>
+                        <div class="col">
+                            <button class="w-100 btn btn-secondary btn-lg"
+                                    onclick="location.href='projects.html'"
+                                    th:onclick="|location.href='@{/projects}'|"
+                                    type="button">취소
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- /container -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

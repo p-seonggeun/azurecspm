@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- sidebar -->
+        <div class="col-lg-2 col-md-2 col-sm-2 sidebar"> <!-- 사이드바를 2개의 열로 설정 -->
+            <a class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">vuldetect</a>
+            <ul class="navbar-nav flex-column mt-4">
+                <!-- 대시보드 -->
+                <li class="nav-item">
+                    <a th:href="@{/dashboard}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fas fa-home text-white fa-xl mr-3"></i>
+                        <span style="margin-left :10px">대시보드</span>
+                    </a>
+                </li>
+                <!-- 프로젝트 관리 -->
+                <li class="nav-item">
+                    <a th:href="@{/projects}" href="#" class="nav-link text-white p-3 mb-2 current">
+                        <i class="fas fa-sheet-plastic text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">프로젝트 관리</span>
+                    </a>
+                </li>
+                <!-- 컴플라이언스 -->
+                <li class="nav-item">
+                    <a th:href="@{/compliance}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fa-solid fa-cloud text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">컴플라이언스</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of sidebar -->
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="container">
+                <div class="py-5 text-center">
+                    <h2>프로젝트 수정</h2>
+                </div>
+                <form action="projects.html" th:action method="post">
+                    <div class="m-3">
+                        <label for="name">프로젝트명</label>
+                        <input type="text" id="name" name="name" class="form-control" value="0" th:value="${project.name}"
+                               >
+                    </div>
+                    <div class="m-3">
+                        <label for="user">소유주</label>
+                        <input type="text" id="user" name="user" class="form-control" value="0"
+                               th:value="${project.user.username}" disabled>
+                    </div>
+                    <div class="m-3">
+                        <label for="compliance">컴플라이언스</label>
+                        <input type="text" id="compliance" name="compliance" class="form-control"
+                               value="0" th:value="${project.compliance.name}" disabled>
+                    </div>
+                    <div class="m-3">
+                        <label for="round">회차</label>
+                        <input type="text" id="round" name="round" class="form-control" value="0"
+                               th:value="${project.round}" disabled>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col">
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: #f44336; border: #f44336;">저장
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="w-100 btn btn-secondary btn-lg"
+                                    onclick="location.href='projects.html'"
+                                    th:onclick="|location.href='@{/projects}'|"
+                                    type="button">취소
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- /container -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

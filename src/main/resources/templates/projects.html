@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- sidebar -->
+        <div class="col-lg-2 col-md-2 col-sm-2 sidebar"> <!-- 사이드바를 2개의 열로 설정 -->
+            <a class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">vuldetect</a>
+            <ul class="navbar-nav flex-column mt-4">
+                <!-- 대시보드 -->
+                <li class="nav-item">
+                    <a th:href="@{/dashboard}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fas fa-home text-white fa-xl mr-3"></i>
+                        <span style="margin-left :10px">대시보드</span>
+                    </a>
+                </li>
+                <!-- 프로젝트 관리 -->
+                <li class="nav-item">
+                    <a th:href="@{/projects}" href="#" class="nav-link text-white p-3 mb-2 current">
+                        <i class="fas fa-sheet-plastic text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">프로젝트 관리</span>
+                    </a>
+                </li>
+                <!-- 컴플라이언스 -->
+                <li class="nav-item">
+                    <a th:href="@{/compliance}" href="#" class="nav-link text-white p-3 mb-2 sidebar-link">
+                        <i class="fa-solid fa-cloud text-white fa-xl mr-3"></i>
+                        <span style="margin-left: 10px">컴플라이언스</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of sidebar -->
+
+        <!-- 프로젝트 목록 컨테이너 -->
+        <div class="col-lg-10 col-md-10 col-sm-10"> <!-- 테이블을 10개의 열로 설정 -->
+            <div class="container" style="max-width: 80%">
+                <div class="py-5 text-center">
+                    <h2>프로젝트 관리</h2>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary float-end" style="background-color: #f44336; border: #f44336; border-radius: 15px"
+                                onclick="location.href='projectAddForm.html'"
+                                th:onclick="|location.href='@{/projects/add}'|"
+                                type="button">
+                            <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+                            프로젝트 추가
+                        </button>
+                    </div>
+                </div>
+                <div class="container-project-status">
+                    <div class="mx-2" style="font-size: 20px;">프로젝트 현황</div>
+                    <div style="width: 40px; height: 30px; border: 1px solid black; border-radius: 25px; text-align: center; line-height: 28px;">
+                        <span th:text="${projects.size()}"></span>
+                    </div>
+                </div>
+
+
+                <hr>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>소유주</th>
+                            <th>컴플라이언스</th>
+                            <th>진단횟수</th>
+                            <th>작업</th> <!-- 작업 열 추가 -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="project : ${projects}">
+                            <td th:text="${project.name}">제목</td>
+                            <td th:text="${project.user.username}">소유주</td>
+                            <td th:text="${project.compliance.name}">컴플라이언스</td>
+                            <td th:text="${project.round}">진단횟수</td>
+                            <td>
+                                <div class="dropdown-center">
+                                    <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-bars"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" th:onclick="|location.href='@{/dashboard/diagnosis/{projectId}(projectId=${project.id})}'|" href="#">진단</a></li>
+                                        <li><a class="dropdown-item" th:onclick="|location.href='@{/projects/edit/{projectId}(projectId=${project.id})}'|" href="#">프로젝트 수정</a></li>
+                                        <li><a class="dropdown-item" th:onclick="|location.href='@{/projects/delete/{projectId}(projectId=${project.id})}'|" href="#">프로젝트 삭제</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- end of 프로젝트 목록 컨테이너 -->
+    </div>
+</div>
+</body>
+</html>
